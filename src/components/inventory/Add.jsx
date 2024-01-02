@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_URLS from '../../config/config';
 
 const AddInventory = () => {
 
- 
+  const baseurl = API_URLS.baseurl;
+  const req = API_URLS.request_base_url;
+
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -26,6 +29,7 @@ const AddInventory = () => {
     });
   };
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);  
@@ -42,10 +46,21 @@ const AddInventory = () => {
       });
       setIsOpen(false);
     } catch (error) {
-      console.error('Error:', error.response.data); // Log the specific error response from the server
+      console.error('Error:', error); // Log the specific error response from the server
     }
   };
   
+
+  const options = [
+    "Beads",
+    "Lock",
+    "Colorful charm",
+    "Balls",
+    "Thread",
+    "Wire",
+    "Pendant"
+
+  ];
 
 
   return (
@@ -149,11 +164,13 @@ const AddInventory = () => {
                 className="border border-gray-400 rounded-md p-2 w-full"
                 required
               >
-                <option value="Beads">Beads</option>
-                <option value="Lock">Lock</option>
-                <option value="Colorful charm">Colorful charm</option>
-                <option value="Balls">Balls</option>
-              </select>
+
+      {options.map((option, index) => (
+        <option key={index} value={option}>
+          {option}
+        </option>
+      ))}
+    </select>
             </div>
           </div>
           <button
